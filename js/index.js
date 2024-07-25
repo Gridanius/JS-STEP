@@ -416,24 +416,33 @@ showBtn.addEventListener('click', (e) => {
 });
 
 function filterTrainers() {
-  const direction = document.querySelector('input[name="direction"]:checked').value;
-  const category = document.querySelector('input[name="category"]:checked').value;
+  	// const direction = document.getElementById('gym');
+	// const category = document.getElementById('master');
 
-  filteredTrainers = DATA.filter((trainer) => {
-    if (direction === 'all' && category === 'all') {
+	const directionInput = document.querySelector('input[name="direction"]:checked').value;
+	const categoryInput = document.querySelector('input[name="category"]:checked').value;
+	const inputsLabels = document.querySelectorAll('label');
+
+	inputsLabels.forEach((label) => {
+		label.textContent = label.textContent.toLowerCase();
+		console.log(label);
+});
+	filteredTrainers = DATA.filter((trainer) => {
+    if (directionInput === 'all' && categoryInput === 'all') {
       return true;
-    } else if (direction !== 'all' && category === 'all') {
-      return trainer.specialization === direction;
-    } else if (direction === 'all' && category !== 'all') {
-      return trainer.category === category;
+    } else if (directionInput !== 'all' && categoryInput === 'all') {
+		return trainer.specialization === directionInput;
+    } else if (directionInput === 'all' && categoryInput !== 'all') {
+      return trainer.category === categoryInput;
     } else {
-      return trainer.specialization === direction || trainer.category === category;
+		return trainer.specialization === directionInput || trainer.category === categoryInput;
     }
   });
-
+	console.log(`test`, filteredTrainers);
+	console.log(`test1`, directionInput);
+	console.log(`test2`, categoryInput);
   renderTrainersCards(); // assuming this function is already defined
 }
 
 // Initial render of the trainers cards
 renderTrainersCards();
-
